@@ -1,1 +1,1 @@
-# react_quadraticCalc
+calculating quadratic formula using react
