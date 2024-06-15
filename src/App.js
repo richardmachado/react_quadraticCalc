@@ -5,60 +5,51 @@ import "./styles.css";
 
 const Page = styled.div`
   box-sizing: border-box;
-  background-color:#b0bed6
+  background-color: #b0bed6;
 `;
 
 const Header = styled.h1`
-   margin: auto;
+  margin: auto;
   width: 50%;
- // border: 3px solid green;
+  // border: 3px solid green;
   padding: 10px;
-  `
-
+`;
 
 const Label = styled.label`
-
   font-size: 1.375rem;
   font-weight: 600;
   line-height: 1.25;
-
 `;
 
 const Invalid = styled.p`
-
-font-size: 1.375rem;
-font-weight: 600;
-line-height: 1.25;
-
-`
+  font-size: 1.375rem;
+  font-weight: 600;
+  line-height: 1.25;
+`;
 const Responses = styled.p`
+  font-size: 1.375rem;
+  font-weight: 600;
+  line-height: 1.25;
+`;
 
-font-size: 1.375rem;
-font-weight: 600;
-line-height: 1.25;
-
-`
-
-  
-export default  function App() {
-
+export default function App() {
   const [a, setNum1] = useState(1);
   const [b, setNum2] = useState(1);
   const [c, setNum3] = useState(-56);
   const [plus, setPlus] = useState(0);
   const [minus, setMinus] = useState(0);
 
-  if ( a > 0 && c > 0 ) { 
-     setNum3(c *- 1);
+  if (a > 0 && c > 0) {
+    setNum3(c * -1);
   }
-   if ( a < 0 && c < 0 ) { 
-     setNum3(c *- 1);
+  if (a < 0 && c < 0) {
+    setNum3(c * -1);
   }
   const fourAC = 4 * a * c;
-  const squareRoot = Math.sqrt((b * b) - fourAC);
-  const plusTotal = ((b * -1) + squareRoot) / (2 * a);
-  const minusTotal = ((b * -1) - squareRoot) / (2 * a);
- 
+  const squareRoot = Math.sqrt(b * b - fourAC);
+  const plusTotal = (b * -1 + squareRoot) / (2 * a);
+  const minusTotal = (b * -1 - squareRoot) / (2 * a);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -74,7 +65,7 @@ export default  function App() {
           // className="input"
           type="number"
           value={a}
-          onChange={(e) => setNum1(e=e.target.value)}
+          onChange={(e) => setNum1((e = e.target.value))}
         />
         <Label>B</Label>
         <input
@@ -106,7 +97,4 @@ export default  function App() {
       </form>
     </Page>
   );
-  ;
-};
-
-
+}
