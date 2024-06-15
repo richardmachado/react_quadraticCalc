@@ -15,14 +15,21 @@ const Page = styled.div`
 
 const Label = styled.label`
   //border: 3px solid green;
-  width: 12;
+  //width: 12;
+  font-size:18px;
+ background-color: blue;
 `;
-
+const Heading = styled.h1`
+   margin: auto;
+  width: 50%;
+ // border: 3px solid green;
+  padding: 10px;
+`;
 export default  function App() {
 
-  const [a, setNum1] = useState(0);
-  const [b, setNum2] = useState(0);
-  const [c, setNum3] = useState(0);
+  const [a, setNum1] = useState(1);
+  const [b, setNum2] = useState(1);
+  const [c, setNum3] = useState(-56);
   const [plus, setPlus] = useState(0);
   const [minus, setMinus] = useState(0);
 
@@ -39,8 +46,8 @@ export default  function App() {
     setMinus(minusTotal);
   };
   return (
-    <Page>
-      <h1>Enter quadratic equation Ax² + Bx + C</h1>
+    <Page className="App-header">
+      <Heading> Testing : Enter quadratic equation Ax² + Bx + C</Heading>
       <form className="form" onSubmit={handleSubmit}>
         <Label>A</Label>
         <input
