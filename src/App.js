@@ -9,54 +9,91 @@ import {
   Tooltip,
   ResponsiveContainer,
   ReferenceDot,
+  ReferenceLine,
 } from "recharts";
 import "./styles.css";
 
 // Styled Components
 const Page = styled.div`
-  box-sizing: border-box;
-  background-color: #9fc5cc;
+  background-color: #e6f2f4;
   min-height: 100vh;
-  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 3rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+`;
+
+const Container = styled.div`
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  padding: 2rem 3rem;
+  max-width: 600px;
+  width: 100%;
 `;
 
 const Header = styled.h1`
-  margin: auto;
-  width: 80%;
-  padding: 1rem;
   text-align: center;
+  color: #0a3d62;
+  margin-bottom: 1.5rem;
+  font-size: 1.75rem;
 `;
 
 const Label = styled.label`
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 600;
   display: block;
-  margin: 0.75rem 0 0.25rem;
+  margin: 1rem 0 0.25rem;
 `;
 
 const Input = styled.input`
-  padding: 0.5rem;
+  padding: 0.6rem;
   font-size: 1rem;
   width: 100%;
-  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.4rem;
+  transition: border 0.3s;
+
+  &:focus {
+    border-color: #0a3d62;
+    outline: none;
+  }
 `;
 
 const Button = styled.button`
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   padding: 0.75rem 1.5rem;
   font-size: 1rem;
   font-weight: bold;
+  background-color: #0a3d62;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
   cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #145c8c;
+  }
 `;
 
 const Response = styled.p`
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 500;
-  margin: 0.5rem 0;
+  margin-top: 0.75rem;
 `;
 
 const Invalid = styled(Response)`
   color: red;
+`;
+
+const GraphContainer = styled.div`
+  width: 100%;
+  height: 400px;
+  margin-top: 2.5rem;
+  border-top: 2px dashed #ccc;
+  padding-top: 1.5rem;
 `;
 
 export default function App() {
@@ -124,59 +161,68 @@ export default function App() {
 
   return (
     <Page>
-      <Header>Quadratic: {formattedEquation}</Header>
+      <Container>
+        <Header>Quadratic: {formattedEquation}</Header>
 
-      <form onSubmit={handleSubmit}>
-        <Label>Coefficient A</Label>
-        <Input
-          type="text"
-          value={coefA}
-          onChange={(e) => {
-            setCoefA(e.target.value);
-            setRoot1(null);
-            setRoot2(null);
-          }}
-        />
+        <form onSubmit={handleSubmit}>
+          <Label>Coefficient A</Label>
+          <Input
+            type="text"
+            value={coefA}
+            onChange={(e) => {
+              setCoefA(e.target.value);
+              setRoot1(null);
+              setRoot2(null);
+            }}
+          />
 
-        <Label>Coefficient B</Label>
-        <Input
-          type="text"
-          value={coefB}
-          onChange={(e) => {
-            setCoefB(e.target.value);
-            setRoot1(null);
-            setRoot2(null);
-          }}
-        />
+          <Label>Coefficient B</Label>
+          <Input
+            type="text"
+            value={coefB}
+            onChange={(e) => {
+              setCoefB(e.target.value);
+              setRoot1(null);
+              setRoot2(null);
+            }}
+          />
 
-        <Label>Coefficient C</Label>
-        <Input
-          type="text"
-          value={coefC}
-          onChange={(e) => {
-            setCoefC(e.target.value);
-            setRoot1(null);
-            setRoot2(null);
-          }}
-        />
+          <Label>Coefficient C</Label>
+          <Input
+            type="text"
+            value={coefC}
+            onChange={(e) => {
+              setCoefC(e.target.value);
+              setRoot1(null);
+              setRoot2(null);
+            }}
+          />
 
-        <Button type="submit">Get Roots & Graph</Button>
+          <Button type="submit">Get Roots & Graph</Button>
 
-        {root1 !== null &&
-          (isNaN(root1) ? (
-            <Invalid>No real roots or invalid input.</Invalid>
-          ) : (
-            <>
-              <Response>x = {root1}</Response>
-              <Response>x = {root2}</Response>
-            </>
-          ))}
-      </form>
+          {root1 !== null &&
+            (isNaN(root1) ? (
+              <Invalid>No real roots or invalid input.</Invalid>
+            ) : (
+              <>
+                <Response>x = {root1}</Response>
+                <Response>x = {root2}</Response>
+              </>
+            ))}
+        </form>
+      </Container>
 
       {graphData.length > 0 && (
         <div style={{ width: "100%", height: 400, marginTop: "2rem" }}>
           <ResponsiveContainer>
             <LineChart data={graphData}>
+              <ReferenceLine
+                y={0}
+                stroke="red"
+                strokeWidth={9}
+                strokeDasharray="4 2"
+              />
+
               <CartesianGrid stroke="#666" strokeDasharray="3 3" />
               <XAxis
                 dataKey="x"
